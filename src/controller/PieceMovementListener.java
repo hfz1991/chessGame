@@ -8,10 +8,11 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 
+import model.AbstractCompositePiece;
 import model.AbstractPiece;
 import model.Barrier;
+import model.CompositeInterface;
 import model.GameManager;
-import model.PieceGroup;
 import model.Player;
 import view.GameOverDialogue;
 import view.SplitDialogue;
@@ -46,7 +47,7 @@ public class PieceMovementListener implements MouseListener
 	private SquarePanel currSquares[][];
 	private SquarePanel oldSquares[][];
 
-	private PieceGroup newSquareArray;
+	private AbstractPiece newSquareArray;
 
 	private static SquarePanel prevSP = null;
 	private static ArrayList<SquarePanel> prevSPList = null;
@@ -94,9 +95,10 @@ public class PieceMovementListener implements MouseListener
 			{
 				return;	
 			}
+			AbstractCompositePiece currentPieceGroup = (AbstractCompositePiece)this.parentSquarePanel.getCurrentPieceGroup();
 			
 			int currentTurnColour = GameManager.getSingleton().getCurrentPlayerTurnColour();
-			if(this.parentSquarePanel.getCurrentPieceGroup().getPieceGroupColour() != currentTurnColour) 
+			if(currentPieceGroup.getColour() != currentTurnColour) 
 			{
 				return;
 			}
@@ -117,8 +119,8 @@ public class PieceMovementListener implements MouseListener
 					.getPiece(currY, currX);
 
 			//only show border for movable piece
-			AbstractPiece piece = newSquareArray.getPieces().get(0);
-			if (!(piece instanceof Barrier)) 
+			AbstractPiece piece = ((AbstractCompositePiece)newSquareArray).getPieces().get(0);
+			if (piece instanceof CompositeInterface) 
 			{
 				parentSquarePanel.setBorder(BorderFactory.createLineBorder(
 						Color.BLUE, 3));
@@ -166,7 +168,8 @@ public class PieceMovementListener implements MouseListener
 
 				int numberOfPiecesMoved = 0;
 				int scoreChange = 0;
-				size=GameManager.getSingleton().getBoard().getPiece(oldY, oldX).getPieces().size();
+				AbstractCompositePiece oldPieces = (AbstractCompositePiece)(GameManager.getSingleton().getBoard().getPiece(oldY, oldX));
+				size=oldPieces.getPieces().size();
 
 				for (int x = 0; x < pointA.size(); x++) 
 				{
@@ -181,7 +184,8 @@ public class PieceMovementListener implements MouseListener
 							scoreChange += GameManager.getSingleton().getBoard().movePieces(from, to);
 						}else if(isSplited==true){
 							ap=null;
-							ap = GameManager.getSingleton().getBoard().getPiece(oldY, oldX).getPieces().get(index);
+							AbstractCompositePiece acp = (AbstractCompositePiece)GameManager.getSingleton().getBoard().getPiece(oldY, oldX);
+							ap = acp.getPieces().get(index);
 							pointList = new ArrayList<Point>();
 							GameManager.getSingleton().getBoard().checkingValidPathPiece(ap, pointList, oldY, oldX);
 							for (int y = 0; y < pointList.size(); y++) 
@@ -189,7 +193,7 @@ public class PieceMovementListener implements MouseListener
 								if (to.x == pointList.get(y).y && to.y == pointList.get(y).x) 
 								{
 
-									GameManager.getSingleton().getBoard().splitPiece(from, to, ap);
+									GameManager.getSingleton().getBoard().splitPiece(from, to, (AbstractCompositePiece) ap);
 								}
 							}
 							

@@ -5,7 +5,7 @@ package model;
  * @author Fang Zhou He
  * @author Michael Kowalenko
  */
-public class Rock extends AbstractPiece implements MovablePiece {
+public class Rock extends AbstractCompositePiece {
 
 	public Rock(int colour, int x, int y) {
 		super(colour, x, y);

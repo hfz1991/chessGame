@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 
 import model.AbstractPiece;
+import model.AbstractCompositePiece;
 import model.Board;
 import model.GameManager;
 import view.InfoPanel;
@@ -41,13 +42,15 @@ public class SplitDialogueSaveListener implements ActionListener
 		this.infoPanelN = infoPanel;
 	}
 
+	// Assumption: The SplitDiaglogue will only show for a piece that is movable and not an unmovable piece like barrier
 	@Override
 	public void actionPerformed(ActionEvent arg0) 
 	{
 		Board board = GameManager.getSingleton().getBoard();
 		Point point = board.getcurrentSelectedPoint();
 		index_a = splitDia.getIndex();
-		AbstractPiece ap = GameManager.getSingleton().getBoard().getPiece(point.y, point.x).getPieces().get(index_a);
+		AbstractPiece pieceSelected = GameManager.getSingleton().getBoard().getPiece(point.y, point.x);
+		AbstractCompositePiece ap = ((AbstractCompositePiece)pieceSelected).getPieces().get(index_a);
 		splitDia.dispose();
 		pointList = new ArrayList<Point>();
 		GameManager.getSingleton().getBoard().checkingValidPathPiece(ap, pointList, point.y, point.x);

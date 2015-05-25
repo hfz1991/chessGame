@@ -6,17 +6,13 @@ package model;
  * @author Michael Kowalenko
  */
 public abstract class AbstractPiece {
+	
 	protected int point;
 	protected int xC;
 	protected int yC;
-	protected int colour;
 	
-	public AbstractPiece(int colour, int x, int y){
-		this.colour = colour;
-		this.setxC(x);
-		this.setyC(y);
-	}
 
+	
 	public AbstractPiece(int x, int y){
 		this.setxC(x);
 		this.setyC(y);
@@ -46,29 +42,15 @@ public abstract class AbstractPiece {
 		this.yC = yC;
 	}
 	
-	public int getColour(){
-		return this.colour;
+	
+	public boolean containsUnmovablePiece() {
+		AbstractPiece p = this;
+		if (!(p instanceof AbstractCompositePiece)) {
+			return true;
+		}
+		return false;
 	}
-	
-	
-	public int merge(AbstractPiece pieceA, AbstractPiece pieceB){
-		pieceA.setxC(pieceB.getxC());
-		pieceA.setyC(pieceB.getyC());
-		
-		return pieceA.getPoint()+pieceB.getPoint();
-	}
-	
-	public int takePiece(AbstractPiece launchPiece, AbstractPiece targetPiece){
-		int scoreOfPiece = targetPiece.getPoint();
-		
-		launchPiece.setxC(targetPiece.getxC());
-		launchPiece.setyC(targetPiece.getyC());
-		targetPiece.setxC(-1);
-		targetPiece.setyC(-1);
-		
-		return scoreOfPiece;
-	}
-	
+
 	public abstract String getName();
 	
 }

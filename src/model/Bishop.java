@@ -5,7 +5,7 @@ package model;
  * @author Fang Zhou He
  * @author Michael Kowalenko
  */
-public class Bishop extends AbstractPiece implements MovablePiece{
+public class Bishop extends AbstractCompositePiece {
 
 	public Bishop(int colour, int x, int y) {
 		super(colour, x, y);

@@ -2,10 +2,12 @@ package view;
 
 import java.awt.*;
 import java.util.*;
+
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+
+import model.AbstractPiece;
 import model.Board;
-import model.PieceGroup;
 
 /**
  * A view class to show the board panel.
@@ -86,7 +88,7 @@ public class BoardPanel extends JPanel implements Observer
 	 * @pre a PieceGroup must exist
 	 * @post set board pieces for squares
 	 */
-	private void setBoardPieces(PieceGroup[][] pieces) 
+	private void setBoardPieces(AbstractPiece[][] pieces) 
 	{
 
 		if (this.squares.length != pieces.length) {
@@ -109,7 +111,7 @@ public class BoardPanel extends JPanel implements Observer
 	public void update(Observable o, Object arg) 
 	{
 		Board gameBoard = (Board) o;
-		PieceGroup[][] pieces = gameBoard.getSquareArray();
+		AbstractPiece[][] pieces = gameBoard.getSquareArray();
 		this.setBoardPieces(pieces);
 	}
 }

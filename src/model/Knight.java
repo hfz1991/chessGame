@@ -5,7 +5,7 @@ package model;
  * @author Fang Zhou He
  * @author Michael Kowalenko
  */
-public class Knight extends AbstractPiece implements MovablePiece{
+public class Knight extends AbstractCompositePiece {
 		
 
 	public Knight(int colour, int x, int y) {

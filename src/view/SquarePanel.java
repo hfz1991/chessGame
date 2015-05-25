@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import view.imageprototype.ImagePrototypeFactory;
 import controller.PieceMovementListener;
+import model.AbstractCompositePiece;
 import model.AbstractPiece;
+import model.CompositeInterface;
 import model.GameManager;
-import model.MovablePiece;
-import model.PieceGroup;
+
 
 /**
  * A view class to show the square panel.
@@ -26,7 +28,7 @@ public class SquarePanel extends JPanel
 {
 	private Point location;
 	
-	private PieceGroup currentPieceGroup;
+	private AbstractPiece currentPieceGroup;
 	
 	public SquarePanel(int x, int y) 
 	{
@@ -36,15 +38,14 @@ public class SquarePanel extends JPanel
  
 	}
 	
-	public PieceGroup getCurrentPieceGroup() 
+	public AbstractPiece getCurrentPieceGroup() 
 	{
 		return this.currentPieceGroup;
 	}
 	
-	public void setCurrentPieceGroup(PieceGroup currentPieceGroup) 
+	public void setCurrentPieceGroup(AbstractPiece currentPieceGroup) 
 	{
 		this.currentPieceGroup = currentPieceGroup;
-		
 		repaint();
 	}
 	
@@ -53,37 +54,28 @@ public class SquarePanel extends JPanel
 		super.paintComponent(g);
 		if(this.currentPieceGroup != null) 
 		{
-			ArrayList<AbstractPiece> pieces = this.currentPieceGroup.getPieces();
-			for(AbstractPiece p : pieces) 
-			{
-				try 
-				{
-					// check colour or whether the piece belongs ot a team, temprary checking star
-					File f = null;
-					if(p instanceof MovablePiece)
-					{
-						MovablePiece mp = (MovablePiece) p;
-						String color = null;
-						if(mp.getColour() == GameManager.BLACK_PLAYER) color="Black";
-						else color="White";
-						
-						f = new File("src/img/" + p.getName() + "_" + color + ".png");
+			if(this.currentPieceGroup instanceof CompositeInterface) {
+				ArrayList<AbstractCompositePiece> pieces = ((AbstractCompositePiece)this.currentPieceGroup).getPieces();
+				for(AbstractCompositePiece p : pieces) {
+					File f = ImagePrototypeFactory.getPieceImageFile(p.getName(), p.getColour());
+					try {
+						g.drawImage(ImageIO.read(f), 0, 0, null);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						// e.printStackTrace();
 					}
-					else
-					{
-						 f = new File("src/img/star.png");
-					}
-					
+				}
+			} else {
+				File f = ImagePrototypeFactory.getPieceImageFile(this.currentPieceGroup.getName());
+				try {
 					g.drawImage(ImageIO.read(f), 0, 0, null);
-				} catch (IOException e) 
-				{
+				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 		}
-		
-		
+
 	}
 	
 	public Point getGridLocation()
