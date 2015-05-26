@@ -30,13 +30,14 @@ public class NewGameDialogue extends JDialog
 	private JButton cancel;
 	
 	private Box base;
-	private Box Num;
+	private Box numOfMoveBox;
+	private Box sizeOfBoardBox;
 	private Box button;
 	
 	private int numMove=40;
 	private int startNum=10;
 	private int verticalAxis=400;
-	private int horizontalAxis=160;
+	private int horizontalAxis=200;
 
 	
 	private int minBoardSize = 6;
@@ -46,10 +47,10 @@ public class NewGameDialogue extends JDialog
 	{
 		
 		//select number of moves
-		Num = Box.createHorizontalBox();
+		numOfMoveBox = Box.createHorizontalBox();
 		selectNum = new JLabel("Select Number of Moves for each Player: ");
-		Num.add(selectNum);
-		Num.add(Box.createHorizontalStrut(2)); 
+		numOfMoveBox.add(selectNum);
+		numOfMoveBox.add(Box.createHorizontalStrut(2)); 
 		
 		numOfMove = new JComboBox();
 		
@@ -59,7 +60,10 @@ public class NewGameDialogue extends JDialog
 		}
 		
 
-		Num.add(numOfMove);
+		numOfMoveBox.add(numOfMove);
+		
+		sizeOfBoardBox = Box.createHorizontalBox();
+		sizeOfBoardBox.add(Box.createHorizontalStrut(2)); 
 		
 		this.selectSizeLabel = new JLabel("Select board size");
 		this.boardSizeBox = new JComboBox();
@@ -67,8 +71,8 @@ public class NewGameDialogue extends JDialog
 			this.boardSizeBox.addItem(i);
 		}
 		
-		Num.add(this.selectSizeLabel);
-		Num.add(this.boardSizeBox);
+		sizeOfBoardBox.add(this.selectSizeLabel);
+		sizeOfBoardBox.add(this.boardSizeBox);
 		
 		this.setModal(true);
 		
@@ -84,7 +88,9 @@ public class NewGameDialogue extends JDialog
 		
 		base = Box.createVerticalBox();
 		base.add(Box.createVerticalStrut(20));
-		base.add(Num);
+		base.add(numOfMoveBox);
+		base.add(Box.createVerticalStrut(20));
+		base.add(sizeOfBoardBox);
 		base.add(Box.createVerticalStrut(25));
 		base.add(button);
 		
