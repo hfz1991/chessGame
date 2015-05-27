@@ -153,6 +153,9 @@ public class Board extends Observable {
 		squareArray[5][4] = new Bishop(GameManager.WHITE_PLAYER, 5, 4);
 		squareArray[5][5] = new Rock(GameManager.WHITE_PLAYER, 5, 5);
 		
+		squareArray[4][0] = new Warrior(GameManager.WHITE_PLAYER, 4, 0);
+		squareArray[1][5] = new Warrior(GameManager.BLACK_PLAYER, 1, 5);
+		
 		for(int i = 0; i < squareArray.length; i++) {
 			for(int j = 0; j < squareArray[i].length; j++) {
 				if(squareArray[i][j] != null && squareArray[i][j] instanceof AbstractCompositePiece) {
@@ -421,6 +424,43 @@ public class Board extends Observable {
 				}
 			}
 			//Finish Knight
+			
+			//Warrior
+			if(piece instanceof Warrior){
+				// Right Bottom
+				if (x + 2 < sizeOfBoard) {
+					if (y + 2 < sizeOfBoard) {
+						Point p = new Point((x + 2), (y + 2));
+						validArray.add(p);
+					}
+				}
+
+				// Left Bottom 
+				if ( x + 2 < sizeOfBoard) {
+					if (y - 2 >= 0) {
+						Point p = new Point((x + 2), (y - 2));
+						validArray.add(p);
+					}
+				}
+
+				// Right Up
+				if (x - 2 >= 0) {
+					if (y + 2 < sizeOfBoard) {
+						Point p = new Point((x - 2), (y + 2));
+						validArray.add(p);
+					}
+				}
+
+				// Left Up 
+				if (x - 2 >= 0) {
+					if (y - 2 >= 0) {
+						Point p = new Point((x - 2), (y - 2));
+						validArray.add(p);
+					}
+				}
+				
+			}
+			//Finish Warrior
 		}
 		//Finish First piece checking
 		
