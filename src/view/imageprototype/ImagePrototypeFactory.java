@@ -18,6 +18,8 @@ public class ImagePrototypeFactory {
 		ColouredChessPieceImageFile whiteRock = new ColouredChessPieceImageFile("src/img/rock_White.png", GameManager.WHITE_PLAYER);
 		ColouredChessPieceImageFile whiteWarrior = new ColouredChessPieceImageFile("src/img/warrior_White.png", GameManager.WHITE_PLAYER);
 		ColouredChessPieceImageFile blackWarrior = new ColouredChessPieceImageFile("src/img/warrior_Black.png", GameManager.WHITE_PLAYER);
+		ColouredChessPieceImageFile whiteTurtle = new ColouredChessPieceImageFile("src/img/turtle_White.png", GameManager.WHITE_PLAYER);
+		ColouredChessPieceImageFile blackTurtle = new ColouredChessPieceImageFile("src/img/turtle_Black.png", GameManager.WHITE_PLAYER);
 		imageFiles.put(generateKey("star"), star);
 		imageFiles.put(generateKey("bishop", GameManager.BLACK_PLAYER), blackBishop);
 		imageFiles.put(generateKey("bishop", GameManager.WHITE_PLAYER), whiteBishop);
@@ -27,6 +29,8 @@ public class ImagePrototypeFactory {
 		imageFiles.put(generateKey("rock", GameManager.WHITE_PLAYER), whiteRock);
 		imageFiles.put(generateKey("warrior", GameManager.BLACK_PLAYER), blackWarrior);
 		imageFiles.put(generateKey("warrior", GameManager.WHITE_PLAYER), whiteWarrior);
+		imageFiles.put(generateKey("turtle", GameManager.BLACK_PLAYER), blackTurtle);
+		imageFiles.put(generateKey("turtle", GameManager.WHITE_PLAYER), whiteTurtle);
 	}
 	
 	public static ChessPieceImageFile getPieceImageFile(String name) {

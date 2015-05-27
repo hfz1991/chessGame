@@ -154,7 +154,10 @@ public class Board extends Observable {
 		squareArray[5][5] = new Rock(GameManager.WHITE_PLAYER, 5, 5);
 		
 		squareArray[4][0] = new Warrior(GameManager.WHITE_PLAYER, 4, 0);
+		squareArray[4][5] = new Turtle(GameManager.WHITE_PLAYER, 4, 5);
 		squareArray[1][5] = new Warrior(GameManager.BLACK_PLAYER, 1, 5);
+		squareArray[1][0] = new Turtle(GameManager.BLACK_PLAYER, 1, 0);
+		
 		
 		for(int i = 0; i < squareArray.length; i++) {
 			for(int j = 0; j < squareArray[i].length; j++) {
@@ -461,6 +464,74 @@ public class Board extends Observable {
 				
 			}
 			//Finish Warrior
+			
+			//Turtle
+			if(piece instanceof Turtle){
+				// Right Bottom Horizontal 
+				if (x + 1 < sizeOfBoard) {
+					if (y - 1 < sizeOfBoard) {
+						Point p = new Point((x + 1), (y - 1));
+						validArray.add(p);
+					}
+				}
+
+				// Bottom 
+				if (x + 0 < sizeOfBoard) {
+					if (y - 1 < sizeOfBoard) {
+						Point p = new Point((x + 0), (y - 1));
+						validArray.add(p);
+					}
+				}	
+						
+				// Left Bottom Horizontal
+				if ( x - 1 < sizeOfBoard) {
+					if (y - 1 >= 0) {
+						Point p = new Point((x - 1), (y - 1));
+						validArray.add(p);
+					}
+				}
+
+				// Left
+				if (x - 1 < sizeOfBoard) {
+					if (y - 0 >= 0) {
+						Point p = new Point((x - 1), (y - 0));
+						validArray.add(p);
+					}
+				}
+				
+				// Left Up 
+				if (x - 1 >= 0) {
+					if (y + 1 < sizeOfBoard) {
+						Point p = new Point((x - 1), (y + 1));
+						validArray.add(p);
+					}
+				}
+
+				// Up
+				if (x - 0 >= 0) {
+					if (y + 1 < sizeOfBoard) {
+						Point p = new Point((x - 0), (y + 1));
+						validArray.add(p);
+					}
+				}
+				
+				// Right Up 
+				if (x + 1 >= 0) {
+					if (y + 1 >= 0) {
+						Point p = new Point((x + 1), (y + 1));
+						validArray.add(p);
+					}
+				}
+				
+				// Right
+				if (x + 1 >= 0) {
+					if (y + 0 >= 0) {
+						Point p = new Point((x + 1), (y + 0));
+						validArray.add(p);
+					}
+				}
+			}
+			//Finish Knight
 		}
 		//Finish First piece checking
 		
